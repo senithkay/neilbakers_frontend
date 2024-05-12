@@ -100,6 +100,32 @@ function App() {
                     path: "monthly-stock-report/:id",
                     element: <MonthlystockReport />,
                 },
+                {
+                    path: "/users",
+                    element: <Users />,
+                },
+                {
+                    path: '/add-user',
+                    element: <AddUser />,
+                },
+                {
+                    path: '/edit-user/:id',
+                    element: <ViewUser />,
+                },
+                {
+                    path: '/locations',
+                    element: <Locations />,
+        
+                },
+                {
+                    path: '/add-location',
+                    element: <AddLocation />,
+                },
+                {
+                    path: '/change-password',
+                    element: <ChangePassword />,
+                }
+                
 
             ],
         },
@@ -120,31 +146,7 @@ function App() {
             path: "/reset-password",
             element: <ResetPassword />,
         },
-        {
-            path: "/users",
-            element: <Users />,
-        },
-        {
-            path: '/add-user',
-            element: <AddUser />,
-        },
-        {
-            path: '/edit-user/:id',
-            element: <ViewUser />,
-        },
-        {
-            path: '/locations',
-            element: <Locations />,
-
-        },
-        {
-            path: '/add-location',
-            element: <AddLocation />,
-        },
-        {
-            path: '/change-password',
-            element: <ChangePassword />,
-        }
+       
     ]);
 
     return <RouterProvider router={router} />;
