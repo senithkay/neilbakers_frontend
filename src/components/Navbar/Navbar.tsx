@@ -2,17 +2,16 @@ import React, { useState, useRef, useEffect } from 'react';
 import styles from "./navbar.module.scss";
 import ProfileIcon from "../../assets/Images/profile-pic.png";
 import { CaretDownOutlined } from "@ant-design/icons";
-import {useNavigate} from "react-router-dom";
-import {GET_TEMP_USER, LOGOUT_USER} from "../../utils/apiRoute.ts";
-import {sendGET} from "../../utils/apiHelper.ts";
+import { useNavigate } from "react-router-dom";
+import { GET_TEMP_USER, LOGOUT_USER } from "../../utils/apiRoute.ts";
+import { sendGET } from "../../utils/apiHelper.ts";
 
 const Navbar: React.FC = () => {
     const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
-    const [isRotated, setIsRotated] = useState<boolean>(false); // Add state for rotation
+    const [isRotated, setIsRotated] = useState<boolean>(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const [user, setUser] = useState<any>({});
     const navigate = useNavigate();
-
 
     useEffect(() => {
         sendGET(GET_TEMP_USER, [])
@@ -26,9 +25,8 @@ const Navbar: React.FC = () => {
             });
         const handleClickOutside = (event: MouseEvent) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-                // Clicked outside the dropdown, close it
                 setDropdownVisible(false);
-                setIsRotated(false); // Reset rotation state
+                setIsRotated(false);
             }
         };
 
@@ -40,13 +38,18 @@ const Navbar: React.FC = () => {
 
     const toggleDropdown = () => {
         setDropdownVisible(!dropdownVisible);
-        setIsRotated(!isRotated); // Toggle rotation state
+        setIsRotated(!isRotated);
     };
 
     const handleSignOut = () => {
         sendGET(LOGOUT_USER, []).then(() => {
                 navigate('/signin')
             });
+    };
+
+    const handleChangePassword = () => {
+        navigate('/change-password');
+        setDropdownVisible(false); // Close dropdown after navigation
     };
 
     return (
@@ -61,7 +64,7 @@ const Navbar: React.FC = () => {
                 </div>
                 {dropdownVisible && (
                     <div ref={dropdownRef} className={styles.dropdownContainer}>
-                        <button className={styles.changePW}>Change Password</button>
+                        <button className={styles.changePW} onClick={handleChangePassword}>Change Password</button>
                         <button className={styles.signoutButton} onClick={handleSignOut}>Sign Out</button>
                     </div>
                 )}

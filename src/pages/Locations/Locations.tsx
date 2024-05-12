@@ -10,12 +10,17 @@ import { ArrowLeftOutlined } from "@ant-design/icons";
 const Locations = () => {
     const [openModal, setOpenModal] = useState(false);
 
-
     return (
         <div className={styles.wrapper}>
-              <DeleteModal open={openModal} onClose={() => setOpenModal(false)} id={undefined} deleteFunction={function (id: string) {
-                throw new Error("Function not implemented.");
-            } } type={""} />
+            <DeleteModal
+                open={openModal}
+                onClose={() => setOpenModal(false)}
+                id={undefined}
+                deleteFunction={function (id: string) {
+                    throw new Error("Function not implemented.");
+                }}
+                type="locations"
+            />
             <div className={styles.mainContainer}>
                 <div className={styles.leftContainer}>
                     <div className={styles.companyDetails}>
@@ -26,19 +31,31 @@ const Locations = () => {
                         <div className={styles.user}>
                             <p>Location 1</p>
                             <div className={styles.action}>
-                                <button><img src={EditIcon} /></button>
-                                <button onClick={() => setOpenModal(true)}><img src={DeleteIcon} /></button>
+                                <button>
+                                    <img src={EditIcon} />
+                                </button>
+                                <button onClick={() => setOpenModal(true)}>
+                                    <img src={DeleteIcon} />
+                                </button>
                             </div>
                         </div>
                         <div className={styles.user}>
                             <p>Location 2</p>
                             <div className={styles.action}>
-                                <button><img src={EditIcon} /></button>
-                                <button onClick={() => setOpenModal(true)}><img src={DeleteIcon} /></button>
+                                <button>
+                                    <img src={EditIcon} />
+                                </button>
+                                <button onClick={() => setOpenModal(true)}>
+                                    <img src={DeleteIcon} />
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <Link to={"/add-location"}><button className={styles.addUserButton}>Add Location</button></Link>
+                    <Link to={"/add-location"}>
+                        <button className={styles.addUserButton}>
+                            Add Location
+                        </button>
+                    </Link>
                 </div>
                 <div className={styles.rightContainer}>
                     <img src={Logo} />
