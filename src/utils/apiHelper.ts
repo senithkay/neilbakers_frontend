@@ -1,4 +1,5 @@
 import {history} from "./common.ts";
+import {AUTH_USER} from "./apiRoute.ts";
 
 const BASE_URL = "http://localhost:3000";
 
@@ -48,6 +49,9 @@ export const sendPOST = async (endpoint: string, payload: any) => {
             body: JSON.stringify(payload),
         });
         if (response.status === 401) {
+            if (endpoint === AUTH_USER){
+                alert("Invalid credentials")
+            }
             history.navigate('/signin')
             return [];
         }
