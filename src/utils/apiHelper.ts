@@ -25,6 +25,9 @@ export const sendGET = async (endpoint: string, params: Params[]) => {
                 data : []
             };
         }
+        if (response.status === 500) {
+            alert("An error occurred performing the request");
+        }
         const json = await response.json();
         return json;
     } catch (error) {
@@ -48,6 +51,9 @@ export const sendPOST = async (endpoint: string, payload: any) => {
             history.navigate('/signin')
             return [];
         }
+        if (response.status === 500) {
+            alert("An error occurred performing the request");
+        }
         const json = await response.json();
         return json;
     } catch (error) {
@@ -65,6 +71,9 @@ export const sendGETPDF = async (endpoint: string, params: Params[]) => {
             return {
                 data : []
             };
+        }
+        if (response.status === 500) {
+            alert("An error occurred performing the request");
         }
         return response.blob()
     } catch (error) {
@@ -86,6 +95,9 @@ export const sendPOSTFORMDATA = async (endpoint: string, payload: any) => {
             history.navigate('/signin')
             return [];
         }
+        if (response.status === 500) {
+            alert("An error occurred performing the request");
+        }
         const json = await response.json();
         return json;
     } catch (error) {
@@ -102,6 +114,14 @@ export const sendDELETE = async (endpoint: string, params: Params[]) => {
         if (response.status === 401) {
             history.navigate('/signin')
             return [];
+        }
+        if (response.status === 500) {
+            alert("An error occurred performing the request");
+        }
+        if (response.status === 400) {
+            response.json().then((data)=>{
+                alert(data.description)
+            })
         }
         const json = await response.json();
         return json;
