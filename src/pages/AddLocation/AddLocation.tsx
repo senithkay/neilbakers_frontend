@@ -1,7 +1,9 @@
 import styles from "./addLocation.module.scss";
 import Logo from "../../assets/Logo/logo.png";
+// import {useState} from "react";
 
 const AddLocation = () => {
+    // const [location, setLocation] = useState({});
     return (
        
         <div className={styles.wrapper}> 

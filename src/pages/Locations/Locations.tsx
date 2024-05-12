@@ -5,7 +5,6 @@ import DeleteIcon from "../../assets/Icons/delete-gray-icon.svg";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import DeleteModal from "../../components/DeleteModal/DeleteModal";
-import { ArrowLeftOutlined } from "@ant-design/icons";
 
 const Locations = () => {
     const [openModal, setOpenModal] = useState(false);

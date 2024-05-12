@@ -10,14 +10,19 @@ import {
 } from "../../utils/apiRoute.ts";
 
 const DailyStockUpdate = () => {
-    const [stock, setStock] = useState({});
+    const [stock, setStock] = useState({} as any);
     const [stocks, setStocks] = useState([] as any);
     const [products, setProducts] = useState([]);
+    const [price, setPrice] = useState(0);
+    const [sold, setSold] = useState(0);
+    const [sales, setSales] = useState(0);
+    const [remainingCost, setRemainingCost] = useState(0);
 
     const { id } = useParams();
     const handleSubmit = (event: any) => {
         event.preventDefault();
         if (id !== undefined && id.length > 0) {
+            setStock({...stock, pricePerUnit:price})
             const payload = {
                 branchId: id,
                 stock: stock,
@@ -36,6 +41,14 @@ const DailyStockUpdate = () => {
             });
         }
     };
+    const onProductChange = (id:any)=>{
+        const product:any = products.find((product:any) => product._id === id);
+        if (product!==undefined){
+            setPrice(product.price)
+            setSales(sold*product.price)
+            setRemainingCost(stock.remainingStock * product.price)
+        }
+    }
     useEffect(() => {
         sendGET(GET_PRODUCTS, []).then((jsonData) => {
             setProducts(jsonData.data);
@@ -58,6 +71,7 @@ const DailyStockUpdate = () => {
                             name=""
                             id=""
                             onChange={(event) => {
+                                onProductChange(event.target.value)
                                 setStock({
                                     ...stock,
                                     productId: event.target.value,
@@ -91,7 +105,9 @@ const DailyStockUpdate = () => {
                         <label htmlFor="">Available stock</label>
                         <input
                             type="number"
-                            onChange={(event) => {
+                            onChange={(event:any) => {
+                                setSold(event.target.value-stock.remainingStock)
+                                setSales((event.target.value-stock.remainingStock)* price)
                                 setStock({
                                     ...stock,
                                     availableStock: event.target.value,
@@ -103,7 +119,10 @@ const DailyStockUpdate = () => {
                         <label htmlFor="">Remaining stock</label>
                         <input
                             type="number"
-                            onChange={(event) => {
+                            onChange={(event:any) => {
+                                setSold(stock.availableStock-event.target.value)
+                                setSales((stock.availableStock-event.target.value)* price)
+                                setRemainingCost(event.target.value* price)
                                 setStock({
                                     ...stock,
                                     remainingStock: event.target.value,
@@ -113,11 +132,12 @@ const DailyStockUpdate = () => {
                     </div>
                     <div className={styles.inputWrapper}>
                         <label htmlFor="">Sold units</label>
-                        <input type="number" />
+                        <input disabled={true} type="number" value={sold}/>
                     </div>
                     <div className={styles.inputWrapper}>
                         <label htmlFor="">Price per unit</label>
                         <input
+                            value={price}
                             type="number"
                             onChange={(event) => {
                                 setStock({
@@ -129,11 +149,11 @@ const DailyStockUpdate = () => {
                     </div>
                     <div className={styles.inputWrapper}>
                         <label htmlFor="">Total sales</label>
-                        <input type="number" />
+                        <input disabled={true} value={sales} type="number" />
                     </div>
                     <div className={styles.inputWrapper}>
                         <label htmlFor="">Cost of remaining stock</label>
-                        <input type="number" />
+                        <input disabled={true} value={remainingCost} type="number" />
                     </div>
                 </div>
                 <button className={styles.addButton} onClick={handleSubmit}>
