@@ -1,0 +1,23 @@
+@use '../../styles/typography.scss' as typography;
+
+.wrapper{
+    display: flex;
+    height: 2.6875rem;
+    justify-content: space-between;
+    align-items: center;
+
+    p{
+        @include typography.body-3;
+        margin-right: 2rem;
+    }
+
+    a{
+        @include typography.body-3;
+        color: #000;
+        text-decoration: none;
+
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+}

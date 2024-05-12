@@ -1,0 +1,108 @@
+@use '../../styles/typography.scss';
+
+.wrapper {
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.625rem;
+    background: #fff;
+    padding: 1rem;
+    gap: 3rem;
+}
+
+.topContainer {
+    display: flex;
+    height: 2rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.625rem;
+    background: #b88e2f;
+
+    p{
+        @include typography.title-3;
+        color: #fff;
+    }
+}
+
+.middleContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    row-gap: 2rem;
+    column-gap: 8rem;
+    padding: 0 1rem;
+}
+
+.inputWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    input{
+        padding: 0.5rem;
+        border: 1px solid #b88e2f;
+        border-radius: 3.125rem;
+
+
+        &:focus{
+            outline: none;
+        }
+    }
+
+    select{
+        padding: 0.7rem;
+        border: 1px solid #b88e2f;
+        border-radius: 3.125rem;
+        padding-right: 1rem;
+    }
+
+    label{
+        @include typography.subTitle-2;
+        margin-left: 1rem;
+        color: #000;
+    }
+}
+
+
+.addButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 3.125rem;
+    background: #b88e2f;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    width: 8rem;
+    margin-right: 1rem;
+    align-self: flex-end;
+
+    &:hover{
+        background: #b88e2f;
+    }
+}
+
+
+.submitButton{
+    margin-top: 1rem;
+    align-self: flex-end;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    background: #b88e2f;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    align-self: flex-end;
+    margin-right: 3rem;
+    width: 8rem;
+
+    &:hover{
+        background: #b88e2f;
+    }
+}
+

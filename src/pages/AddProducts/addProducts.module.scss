@@ -1,0 +1,162 @@
+@use "../../styles/typography.scss";
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+}
+
+.topContainer {
+    p {
+        @include typography.title-2;
+        color: #b28e00;
+    }
+}
+
+.middleContainer {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    border-radius: 0.625rem;
+    background: #fff;
+    margin: 1rem 2rem;
+    padding: 2rem 4rem;
+
+    .inputWrapper {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+
+        label {
+            @include typography.body-1;
+            color: #000;
+            margin-bottom: 0.5rem;
+        }
+
+        input {
+            padding: 0.5rem;
+            max-width: 20.4375rem;
+            border-radius: 0.25rem;
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            background: rgba(217, 217, 217, 0.5);
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        textarea {
+            resize: none;
+            height: 8rem;
+            border-radius: 0.25rem;
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            background: rgba(217, 217, 217, 0.5);
+        }
+
+        .descriptionText {
+            margin-top: 2rem;
+        }
+    }
+}
+
+.inputContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.bottomContainer {
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.625rem;
+    background: #fff;
+    margin: 1rem 2rem;
+    padding: 2rem 4rem;
+    height: 15.9375rem;
+
+    .uploadContainer {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        border-radius: 0.625rem;
+        border: 2px dashed #000;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        gap: 0.5rem;
+    }
+
+    .uploadIcon {
+        font-size: 4rem;
+        color: #000;
+    }
+
+    .uploadText {
+        @include typography.body-4;
+        color: #000;
+
+        label {
+            color: #b28e00;
+            cursor: pointer;
+        }
+    }
+
+    .supportText {
+        @include typography.body-3;
+        color: #000;
+    }
+
+    .filePreviewContainer{
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .filePreview {
+        width: 5rem;
+        height: 5rem;
+        border: 1px solid #000000b5;
+        border-radius: 0.25rem;
+        position: relative;
+        user-select: none;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0.25rem;
+            user-select: none;
+        }
+    }
+
+    .closeButton {
+        position: absolute;
+        top: -0.5rem;
+        right: -0.5rem;
+        background: #000000b5;
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        padding: 0.25rem;
+        cursor: pointer;
+        font-size: 0.8rem;
+    }
+}
+
+
+.submitButton{
+    align-self: flex-end;
+    margin-right: 3rem;
+    padding: 0.5rem 2rem;
+    border-radius: 0.25rem;
+    background: #b28e00;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    margin-top: 1rem;
+    transition: background 0.3s;
+
+    &:hover {
+        background: #000;
+    }
+}
