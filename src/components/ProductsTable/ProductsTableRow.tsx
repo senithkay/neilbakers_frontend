@@ -33,9 +33,6 @@ const TableRow: React.FC<TableRowProps> = ({
                 <td className={Styles.td2}>{sku}</td>
                 <td className={Styles.td3}>
                     <div className={Styles.action}>
-                        <button>
-                            <img src={EyeIcon} />
-                        </button>
                         <Link to={`/add-products/${id}`}>
                             <button>
                                 <img src={EditIcon}/>
