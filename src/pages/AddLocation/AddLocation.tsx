@@ -1,9 +1,35 @@
 import styles from "./addLocation.module.scss";
 import Logo from "../../assets/Logo/logo.png";
+import {useState} from "react";
+import {sendPOST} from "../../utils/apiHelper.ts";
+import {SAVE_LOCATION} from "../../utils/apiRoute.ts";
+import {useNavigate} from "react-router-dom";
 // import {useState} from "react";
 
 const AddLocation = () => {
-    // const [location, setLocation] = useState({});
+    const [location, setLocation] = useState('');
+    const navigate = useNavigate();
+    const handleLocationChange = (event:any) => {
+        setLocation(event.target.value);
+    }
+    const handleSubmit = (event:any)=>{
+        event.preventDefault()
+        if(location === ""){
+            alert('Please Enter a location name')
+        }
+        else{
+            sendPOST(SAVE_LOCATION, {name: location})
+                .then((result:any)=>{
+                    if (result.data._id){
+                        navigate('/locations')
+                    }
+                    else{
+                        alert("Error creating the branch")
+                    }
+                })
+        }
+
+    }
     return (
        
         <div className={styles.wrapper}> 
@@ -23,9 +49,9 @@ const AddLocation = () => {
                         <form action="" className={styles.form}>
                             <div className={styles.nameContainer}>
                                 <label htmlFor="name"> Location Name</label>
-                                <input type="text" id="name" />
+                                <input type="text" id="name" required={true} onChange={handleLocationChange}/>
                             </div>
-                            <button className={styles.createButton}>
+                            <button className={styles.createButton} onClick={handleSubmit}>
                                 Create Location
                             </button>
                         </form>
