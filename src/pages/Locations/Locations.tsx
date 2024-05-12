@@ -51,9 +51,6 @@ const Locations = () => {
                                 <div className={styles.user}>
                                     <p>{location.name}</p>
                                     <div className={styles.action}>
-                                        <button>
-                                            <img src={EditIcon}/>
-                                        </button>
                                         <button onClick={() => {
                                             setSelectedLocation(location._id);
                                             setOpenModal(true)}}>
@@ -63,17 +60,6 @@ const Locations = () => {
                                 </div>
                             )
                         })}
-                        <div className={styles.user}>
-                            <p>Location 2</p>
-                            <div className={styles.action}>
-                                <button>
-                                    <img src={EditIcon}/>
-                                </button>
-                                <button onClick={() => setOpenModal(true)}>
-                                    <img src={DeleteIcon}/>
-                                </button>
-                            </div>
-                        </div>
                     </div>
                     <Link to={"/add-location"}>
                         <button className={styles.addUserButton}>
