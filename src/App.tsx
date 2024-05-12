@@ -20,6 +20,8 @@ import EnterOTP from "./pages/ResetPassword/EnterOTP.tsx";
 import ResetPassword from "./pages/ResetPassword/ResetPassword.tsx";
 import Locations from "./pages/Locations/Locations.tsx";
 import AddLocation from "./pages/AddLocation/AddLocation.tsx";
+import ChangePassword from "./pages/ChangePassword/ChangePassword.tsx";
+import ViewUser from "./pages/ViewUser/ViewUser.tsx";
 
 function App() {
     const Layout = () => {
@@ -125,7 +127,10 @@ function App() {
         {
             path: '/add-user',
             element: <AddUser />,
-
+        },
+        {
+            path: '/edit-user/:id',
+            element: <ViewUser />,
         },
         {
             path: '/locations',
@@ -135,6 +140,10 @@ function App() {
         {
             path: '/add-location',
             element: <AddLocation />,
+        },
+        {
+            path: '/change-password',
+            element: <ChangePassword />,
         }
     ]);
 

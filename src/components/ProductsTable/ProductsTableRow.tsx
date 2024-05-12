@@ -24,7 +24,7 @@ const TableRow: React.FC<TableRowProps> = ({
 
     return (
         <tr className={Styles.tr}>
-            <DeleteModal type={'product'} deleteFunction={onDelete}
+            <DeleteModal  type="products" deleteFunction={onDelete}
                          id={id} open={openModal} onClose={() => setOpenModal(false)} />
             <div className={Styles.td}>
                 <td className={Styles.td1}>
