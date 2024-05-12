@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Styles from "./productsTableRow.module.scss";
-import EyeIcon from "../../assets/Icons/eye-icon.svg";
 import EditIcon from "../../assets/Icons/pen-icon.svg";
 import DeleteIcon from "../../assets/Icons/delete-gray-icon.svg";
 import DeleteModal from "../DeleteModal/DeleteModal";
