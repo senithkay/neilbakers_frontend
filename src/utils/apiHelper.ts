@@ -56,6 +56,25 @@ export const sendPOST = async (endpoint: string, payload: any) => {
     }
 };
 
+export const sendGETPDF = async (endpoint: string, params: Params[]) => {
+    const paramsString = getPrams(params);
+    try {
+        const response = await fetch(`${BASE_URL}${endpoint}${paramsString}`, { credentials: 'include' });
+        if (response.status === 401) {
+            history.navigate('/signin')
+            return {
+                data : []
+            };
+        }
+        return response.blob()
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+};
+
+
+
 export const sendPOSTFORMDATA = async (endpoint: string, payload: any) => {
     try {
         const response = await fetch(`${BASE_URL}${endpoint}`, {

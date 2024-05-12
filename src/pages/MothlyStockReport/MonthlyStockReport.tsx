@@ -4,8 +4,8 @@ import { DatePicker } from "antd";
 import MonthlyStockTable from "../../components/MonthlyStockTable/MonthlyStockTable";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import {sendGET} from "../../utils/apiHelper.ts";
-import {GET_DASHBOARD_MONTHLY_REPORT} from "../../utils/apiRoute.ts";
+import {sendGET, sendGETPDF} from "../../utils/apiHelper.ts";
+import {GET_DASHBOARD_MONTHLY_REPORT, GET_MONTHLY_REPORT_PDF} from "../../utils/apiRoute.ts";
 
 const MonthlystockReport = () => {
     const [stocks, setStocks] = useState([]);
@@ -23,6 +23,21 @@ const MonthlystockReport = () => {
     const onChange: DatePickerProps["onChange"] = (_date, dateString) => {
         setDate(dateString.toString())
     };
+    const handleGetPdf = ()=>{
+        const params = [{key: 'id', value: id}, {key: 'date', value: date}];
+        sendGETPDF(GET_MONTHLY_REPORT_PDF, params)
+            .then((blob:any) => {
+                const url = window.URL.createObjectURL(blob);
+                const newWindow = window.open(url);
+                if (newWindow === null) {
+                    alert('error printing report')
+                    return;
+                }
+                newWindow.onload = () => {
+                    newWindow.print();
+                };
+            });
+    }
     return (
         <div className={styles.wrapper}>
             <div className={styles.mainContainer}>
@@ -39,7 +54,7 @@ const MonthlystockReport = () => {
                 <MonthlyStockTable data={stocks} />
             </div>
             <div className={styles.buttonContainer}>
-                <button className={styles.printButton}>Print</button>
+                <button className={styles.printButton} onClick={handleGetPdf}>Print</button>
                 <button className={styles.exportButton}>Generate Excel </button>
             </div>
         </div>
