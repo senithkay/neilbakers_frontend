@@ -99,9 +99,6 @@ export const sendPOSTFORMDATA = async (endpoint: string, payload: any) => {
             history.navigate('/signin')
             return [];
         }
-        if (response.status === 500) {
-            alert("An error occurred performing the request");
-        }
         const json = await response.json();
         return json;
     } catch (error) {
@@ -126,6 +123,36 @@ export const sendDELETE = async (endpoint: string, params: Params[]) => {
             response.json().then((data)=>{
                 alert(data.description)
             })
+        }
+        const json = await response.json();
+        return json;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+};
+
+export const sendPUT = async (endpoint: string, params: Params[], payload: any) => {
+    try {
+        const paramsString = getPrams(params);
+        const response = await fetch(`${BASE_URL}${endpoint}${paramsString}`, {
+            method: "PUT",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            credentials: 'include',
+            body: JSON.stringify(payload),
+        });
+        if (response.status === 401) {
+            if (endpoint === AUTH_USER){
+                alert("Invalid credentials")
+            }
+            history.navigate('/signin')
+            return [];
+        }
+        if (response.status === 500) {
+            alert("An error occurred performing the request");
         }
         const json = await response.json();
         return json;

@@ -11,19 +11,23 @@ interface TableRowProps {
     sku: string;
     id:string
     onDelete: (id: string) => void;
+    description: string;
+    price: string;
 }
 
 const TableRow: React.FC<TableRowProps> = ({
     product,
     sku,
     id,
-    onDelete
+    onDelete,
+    description,
+    price
 }) => {
     const [openModal, setOpenModal] = useState(false);
 
     return (
         <tr className={Styles.tr}>
-            <DeleteModal  type="products" deleteFunction={onDelete}
+            <DeleteModal  type="product" deleteFunction={onDelete}
                          id={id} open={openModal} onClose={() => setOpenModal(false)} />
             <div className={Styles.td}>
                 <td className={Styles.td1}>
@@ -32,7 +36,7 @@ const TableRow: React.FC<TableRowProps> = ({
                 <td className={Styles.td2}>{sku}</td>
                 <td className={Styles.td3}>
                     <div className={Styles.action}>
-                        <Link to={`/add-products/${id}`}>
+                        <Link to={`/add-products/${JSON.stringify({productName:product, description:description, price:price, sku:sku,_id:id})}`}>
                             <button>
                                 <img src={EditIcon}/>
                             </button>

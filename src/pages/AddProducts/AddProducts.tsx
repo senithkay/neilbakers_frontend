@@ -56,7 +56,7 @@ const AddProducts: React.FC = () => {
         formData.append("image", files[0]);
         sendPOSTFORMDATA(SAVE_PRODUCT, formData).then(async (jasonData) => {
             if (jasonData.status === 0) {
-                <ErrorAlert description="Enter an another product name" />;
+                alert(jasonData.description)
             }
             if (jasonData.data._id !== undefined) {
                 navigate("/products");

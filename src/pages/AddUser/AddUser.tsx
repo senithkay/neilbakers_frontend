@@ -12,6 +12,7 @@ const AddUser = () => {
   const handleSubmit = (event: any) => {
     event.preventDefault();
     sendPOST(SAVE_USER, user).then(async (jasonData) => {
+
         if (jasonData.data._id !== undefined) {
           await navigate("/users");
         }
