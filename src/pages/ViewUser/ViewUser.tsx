@@ -57,7 +57,7 @@ const ViewUser = () => {
                                     }}
                                 />
                             </div>
-                            <div className={styles.locationContainer}>
+                            {/* <div className={styles.locationContainer}>
                                 <label htmlFor='location'>Location</label>
                                 <select
                                     value={user.location}
@@ -72,7 +72,7 @@ const ViewUser = () => {
                                         );
                                     })}
                                 </select>
-                            </div>
+                            </div> */}
                             <div className={styles.usernameContainer}>
                                 <label htmlFor='username'>Username</label>
                                 <input

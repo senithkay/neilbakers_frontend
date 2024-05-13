@@ -42,13 +42,13 @@ const ResetPassword = () => {
                                 }}/>
                             </div>
                             <div className={styles.passwordContainer}>
-                                <label htmlFor="password">Password</label>
+                                <label htmlFor="password">New Password</label>
                                 <input type="password" id="password" onChange={(event) => {
                                     setCredentials({...credentials, password: event.target.value});
                                 }}/>
                             </div>
                             <button className={styles.siginButton} onClick={handleSignin}>
-                                Sign In
+                                Reset Password
                             </button>
                         </form>
                     </div>

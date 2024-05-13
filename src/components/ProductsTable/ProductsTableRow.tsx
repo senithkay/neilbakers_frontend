@@ -34,7 +34,8 @@ const TableRow: React.FC<TableRowProps> = ({
                     {product}
                 </td>
                 <td className={Styles.td2}>{sku}</td>
-                <td className={Styles.td3}>
+                <td className={Styles.td3}>{parseFloat(price).toFixed(2)}</td>
+                <td className={Styles.td4}>
                     <div className={Styles.action}>
                         <Link to={`/add-products/${JSON.stringify({productName:product, description:description, price:price, sku:sku,_id:id})}`}>
                             <button>

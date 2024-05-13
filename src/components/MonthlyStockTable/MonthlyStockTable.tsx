@@ -38,8 +38,8 @@ const MonthlyStockTable: React.FC<Props> = ({ data }) => {
                             <td>{item.openingStock}</td>
                             <td>{item.soldStock}</td>
                             <td>{item.balanceStock}</td>
-                            <td>{item.pricePerUnit}</td>
-                            <td>{item.totalSales}</td>
+                            <td className={styles.price}>{item.pricePerUnit.toFixed(2)}</td>
+                            <td className={styles.price}>{item.totalSales.toFixed(2)}</td>
                         </tr>
                     ))}
                     {/* Display 10 empty rows */}
@@ -58,7 +58,7 @@ const MonthlyStockTable: React.FC<Props> = ({ data }) => {
                 <tfoot>
                     <tr>
                         <td colSpan={6}>Total</td>
-                        <td>{totalSales}</td>
+                        <td className={styles.price}>{totalSales.toFixed(2)}</td>
                     </tr>
                 </tfoot>
             </table>

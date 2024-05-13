@@ -2,6 +2,7 @@ import DailyStockTable from "../../components/DailyStockTable/DailyStockTable";
 import styles from "./dailyStockReport.module.scss";
 import type { DatePickerProps } from "antd";
 import { DatePicker } from "antd";
+import dayjs from 'dayjs';
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {sendGET, sendGETPDF} from "../../utils/apiHelper.ts";
@@ -9,7 +10,7 @@ import {GET_DAILY_REPORT, GET_DAILY_REPORT_PDF} from "../../utils/apiRoute.ts";
 
 const DailyStockReport = () => {
     const [stocks, setStocks] = useState([]);
-    const [date, setDate] = useState<string>();
+    const [date, setDate] = useState<string>(getDefaultDate());;
 
     const {id} = useParams();
     useEffect(() => {
@@ -47,6 +48,7 @@ const DailyStockReport = () => {
                 </div>
                 <div className={styles.selectDate}>
                     <DatePicker
+                        defaultValue={dayjs()}
                         className={styles.datePicker}
                         onChange={onChange}
                     />
@@ -55,10 +57,17 @@ const DailyStockReport = () => {
             </div>
             <div className={styles.buttonContainer}>
                 <button className={styles.printButton} onClick={handleGetPdf}>Print</button>
-                <button className={styles.exportButton}>Generate Excel </button>
             </div>
         </div>
     );
 };
+
+function getDefaultDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
 
 export default DailyStockReport;

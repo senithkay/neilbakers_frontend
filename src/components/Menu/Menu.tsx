@@ -97,9 +97,11 @@ const Menu: React.FC = () => {
                                         }}>{location.name}</li>
                                     );
                                 })}
-                                <NavLink to={"/locations"}>
-                                    <li>Add More</li>
-                                </NavLink>
+                                {user.isSuperAdmin?
+                                    <NavLink to={"/locations"}>
+                                        <li>Add More</li>
+                                    </NavLink>:<></>
+                                }
                             </ul>
                         </div>
                     )}

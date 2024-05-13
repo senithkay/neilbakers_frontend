@@ -36,13 +36,13 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
 
   let itemText = "";
   switch (type) {
-    case "products":
+    case "product":
       itemText = "product";
       break;
-    case "users":
+    case "user":
       itemText = "user";
       break;
-    case "locations":
+    case "location":
       itemText = "location";
       break;
     default:

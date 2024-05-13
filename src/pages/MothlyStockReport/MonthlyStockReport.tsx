@@ -1,6 +1,7 @@
 import styles from "./monthlyStockReport.module.scss";
 import type { DatePickerProps } from "antd";
 import { DatePicker } from "antd";
+import dayjs from 'dayjs';
 import MonthlyStockTable from "../../components/MonthlyStockTable/MonthlyStockTable";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
@@ -9,7 +10,7 @@ import {GET_DASHBOARD_MONTHLY_REPORT, GET_MONTHLY_REPORT_PDF} from "../../utils/
 
 const MonthlystockReport = () => {
     const [stocks, setStocks] = useState([]);
-    const [date, setDate] = useState<string>();
+    const [date, setDate] = useState<string>(getDefaultMonth());
 
     const {id} = useParams();
     useEffect(() => {
@@ -46,6 +47,7 @@ const MonthlystockReport = () => {
                 </div>
                 <div className={styles.selectDate}>
                     <DatePicker
+                        defaultValue={dayjs()}
                         className={styles.datePicker}
                         onChange={onChange}
                         picker="month"
@@ -55,10 +57,15 @@ const MonthlystockReport = () => {
             </div>
             <div className={styles.buttonContainer}>
                 <button className={styles.printButton} onClick={handleGetPdf}>Print</button>
-                <button className={styles.exportButton}>Generate Excel </button>
             </div>
         </div>
     );
 };
+
+function getDefaultMonth() {
+    const today = new Date();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    return `${month}`;
+}
 
 export default MonthlystockReport;

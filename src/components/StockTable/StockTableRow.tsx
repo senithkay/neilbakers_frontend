@@ -19,8 +19,8 @@ const TableRow: React.FC<TableRowProps> = ({ product, availableStock, remainingS
                 <td className={Styles.td2}>{availableStock}</td>
                 <td className={Styles.td3}>{remainingStock}</td>
                 <td className={Styles.td4}>{soldUnits}</td>
-                <td className={Styles.td5}>{pricePerUnit}</td>
-                <td className={Styles.td6}>{totalSales}</td>
+                <td className={Styles.td5}>{pricePerUnit.toFixed(2)}</td>
+                <td className={Styles.td6}>{totalSales.toFixed(2)}</td>
             </div>
         </tr>
     );

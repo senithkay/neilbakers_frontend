@@ -47,7 +47,8 @@ const ProductTable: React.FC<TableComponentProps> = ({ data, onDelete }) => {
         <tr className={Styles.tr}>
           <th className={Styles.th1}>Product</th>
           <th className={Styles.th2}>SKU</th>
-          <th className={Styles.th3}>Action</th>
+          <th className={Styles.th3}>Price</th>
+          <th className={Styles.th4}>Action</th>
         </tr>
       </thead>
       <tbody className={Styles.tableBody}>{renderRows()}</tbody>

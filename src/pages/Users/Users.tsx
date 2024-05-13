@@ -28,7 +28,7 @@ const Users = () => {
   return (
     <div className={styles.wrapper}>
       <DeleteModal
-           type="users"
+           type="user"
         deleteFunction={deleteUser}
         id={selectedUser}
         open={openModal}

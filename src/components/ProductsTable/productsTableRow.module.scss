@@ -19,7 +19,7 @@
 }
 
 .td1 {
-    width: 35%;
+    width: 25%;
     text-align: center;
     display: flex;
     padding-left: 1.375rem;
@@ -30,7 +30,7 @@
 }
 
 .td2 {
-    width: 35%;
+    width: 25%;
     text-align: center;
     display: flex;
     padding-left: 1.375rem;
@@ -42,7 +42,19 @@
 }
 
 .td3 {
-    width: 30%;
+    width: 25%;
+    text-align: center;
+    display: flex;
+    padding-left: 1.375rem;
+    align-items: center;
+    gap: 0.5rem;
+    // @include typography.font-body-6;
+    color: #1D1F2C;
+    justify-content: center;
+}
+
+.td4 {
+    width: 25%;
     text-align: center;
     display: flex;
     padding-left: 1.375rem;

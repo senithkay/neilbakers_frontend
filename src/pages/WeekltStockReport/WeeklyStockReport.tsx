@@ -75,7 +75,6 @@ const WeeklyStockReport = () => {
             </div>
             <div className={styles.buttonContainer}>
                 <button className={styles.printButton} onClick={handleGetPdf}>Print</button>
-                <button className={styles.exportButton}>Generate Excel </button>
             </div>
         </div>
     );

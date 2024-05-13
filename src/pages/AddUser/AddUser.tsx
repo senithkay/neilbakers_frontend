@@ -1,20 +1,20 @@
 import styles from "./addUser.module.scss";
 import Logo from "../../assets/Logo/logo.png";
 import { useEffect, useState } from "react";
-import { navigate } from "vike/client/router";
 import {sendGET, sendPOST} from "../../utils/apiHelper.ts";
 import {GET_BRANCHES, SAVE_USER} from "../../utils/apiRoute.ts";
+import { useNavigate } from "react-router-dom";
 
 const AddUser = () => {
   const [user, setUser] = useState({});
   const [locations, setLocations] = useState([]);
-
+  const navigate = useNavigate();
   const handleSubmit = (event: any) => {
     event.preventDefault();
     sendPOST(SAVE_USER, user).then(async (jasonData) => {
 
         if (jasonData.data._id !== undefined) {
-          await navigate("/users");
+          navigate("/users");
         }
       });
   };
@@ -41,9 +41,9 @@ const AddUser = () => {
             </div>
             <form action='' className={styles.form}>
               <div className={styles.nameContainer}>
-                <label htmlFor='name'>Name</label>
+                <label htmlFor='name'>Email</label>
                 <input
-                  type='text'
+                  type='email'
                   id='name'
                   onChange={(event) => {
                     setUser({ ...user, email: event.target.value });

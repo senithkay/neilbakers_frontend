@@ -19,6 +19,8 @@ const ChangePassword = () => {
                     if (result.data._id){
                         alert("Password reset successful")
                         navigate('/')
+                    } else {
+                        alert("Old password is incorrect !")
                     }
                 })
         }
@@ -46,7 +48,7 @@ const ChangePassword = () => {
                             </div>
                             <div className={styles.passwordContainer}>
                                 <label htmlFor="username">New Password</label>
-                                <input type="text" id="username" onChange={(event) => {
+                                <input type="password" id="username" onChange={(event) => {
                                     setCredentials({...credentials, newPassword: event.target.value});
                                 }}/>
                             </div>

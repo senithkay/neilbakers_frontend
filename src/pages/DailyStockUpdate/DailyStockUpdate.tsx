@@ -25,7 +25,7 @@ const DailyStockUpdate = () => {
             setStock({...stock, pricePerUnit:price})
             const payload = {
                 branchId: id,
-                stock: stock,
+                stock: { ...stock, pricePerUnit: price },
             };
             sendPOST(SAVE_DAILY_STOCK, payload).then(async (jsonData) => {
                 if (jsonData.data._id !== undefined) {
@@ -37,6 +37,7 @@ const DailyStockUpdate = () => {
                     );
                     newStocks.push(jsonData.data);
                     setStocks(newStocks);
+                    alert("Stock updated successfully !")
                 }
             });
         }
@@ -44,7 +45,7 @@ const DailyStockUpdate = () => {
     const onProductChange = (id:any)=>{
         const product:any = products.find((product:any) => product._id === id);
         if (product!==undefined){
-            setPrice(product.price)
+            setPrice(parseFloat(product.price))
             setSales(sold*product.price)
             setRemainingCost(stock.remainingStock * product.price)
         }
@@ -82,7 +83,7 @@ const DailyStockUpdate = () => {
                             {products.map((product: any) => {
                                 return (
                                     <option value={product._id}>
-                                        {product.sku}
+                                        {product.productName}
                                     </option>
                                 );
                             })}
@@ -137,23 +138,23 @@ const DailyStockUpdate = () => {
                     <div className={styles.inputWrapper}>
                         <label htmlFor="">Price per unit</label>
                         <input
-                            value={price}
+                            value={price.toFixed(2)}
                             type="number"
-                            onChange={(event) => {
-                                setStock({
-                                    ...stock,
-                                    pricePerUnit: event.target.value,
-                                });
-                            }}
+                            // onChange={(event) => {
+                            //     setStock({
+                            //         ...stock,
+                            //         pricePerUnit: event.target.value,
+                            //     });
+                            // }}
                         />
                     </div>
                     <div className={styles.inputWrapper}>
                         <label htmlFor="">Total sales</label>
-                        <input disabled={true} value={sales} type="number" />
+                        <input disabled={true} value={sales.toFixed(2)} type="number" />
                     </div>
                     <div className={styles.inputWrapper}>
                         <label htmlFor="">Cost of remaining stock</label>
-                        <input disabled={true} value={remainingCost} type="number" />
+                        <input disabled={true} value={remainingCost.toFixed(2)} type="number" />
                     </div>
                 </div>
                 <button className={styles.addButton} onClick={handleSubmit}>
