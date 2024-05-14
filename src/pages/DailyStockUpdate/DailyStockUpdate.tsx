@@ -54,11 +54,17 @@ const DailyStockUpdate = () => {
         sendGET(GET_PRODUCTS, []).then((jsonData) => {
             setProducts(jsonData.data);
         });
-        const params = [{ key: "id", value: id }];
+        let filterDate = stock.date;
+        if (filterDate===undefined){
+            const date = new Date();
+            filterDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
+            setStock({...stock, date:filterDate});
+        }
+        const params = [{ key: "id", value: id }, {key: "date", value: filterDate }];
         sendGET(GET_STOCK, params).then((jsonData) => {
             setStocks(jsonData.data);
         });
-    }, [id]);
+    }, [id, stock.date]);
     return (
         <div className={styles.wrapper}>
             <div className={styles.mainContainer}>
@@ -93,6 +99,7 @@ const DailyStockUpdate = () => {
                         <label htmlFor="">Select Date</label>
                         <input
                             type="date"
+                            value={stock.date}
                             onChange={(event) => {
                                 setStock({
                                     ...stock,

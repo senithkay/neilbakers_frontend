@@ -10,12 +10,18 @@ import {GET_DASHBOARD_MONTHLY_REPORT, GET_MONTHLY_REPORT_PDF} from "../../utils/
 
 const MonthlystockReport = () => {
     const [stocks, setStocks] = useState([]);
-    const [date, setDate] = useState<string>(getDefaultMonth());
+    const [date, setDate] = useState<string>();
 
     const {id} = useParams();
     useEffect(() => {
+        let filterDate = date
+        if (filterDate===undefined){
+            const currentDate = new Date();
+            filterDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}`
+            setDate(filterDate)
+        }
         if(!(date===undefined || date === '' || date === null)){
-            const params = [{key: 'id', value: id}, {key: 'date', value: date}];
+            const params = [{key: 'id', value: id}, {key: 'date', value: filterDate}];
             sendGET(GET_DASHBOARD_MONTHLY_REPORT, params).then((jsonData) => {
                     setStocks(jsonData.data);
                 });
