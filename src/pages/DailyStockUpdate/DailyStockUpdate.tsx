@@ -162,7 +162,6 @@ const DailyStockUpdate = () => {
                 </button>
                 <StockTable data={stocks} />
             </div>
-            <button className={styles.submitButton}>Submit</button>
         </div>
     );
 };

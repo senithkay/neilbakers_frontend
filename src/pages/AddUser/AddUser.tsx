@@ -56,6 +56,7 @@ const AddUser = () => {
                   onChange={(event) => {
                     setUser({ ...user, location: event.target.value });
                   }}
+                  multiple={true}
                 >
                   <option value={""}></option>
                   {locations.map((location: {_id:string; name:string}) => {

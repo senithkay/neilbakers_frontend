@@ -10,6 +10,7 @@ interface TableComponentProps {
       availableStock: number;
       remainingStock: number;
       pricePerUnit: number;
+      onDelete: (id:string) => void;
     }[];
 }
 
@@ -40,10 +41,11 @@ const StockTable: React.FC<TableComponentProps> = ({ data }) => {
                     product={item.productId.productName}
                     availableStock={item.availableStock}
                     remainingStock={item.remainingStock}
-                    soldUnits={item.availableStock-item.remainingStock}
+                    soldUnits={item.availableStock - item.remainingStock}
                     pricePerUnit={item.pricePerUnit}
-                    totalSales={(item.availableStock-item.remainingStock)*item.pricePerUnit}
-                />
+                    totalSales={(item.availableStock - item.remainingStock) * item.pricePerUnit} onDelete={function (): void {
+                        throw new Error("Function not implemented.");
+                    } } id={""}                />
             ));
     };
 
