@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import {sendGET, sendPOST} from "../../utils/apiHelper.ts";
 import {GET_BRANCHES, SAVE_USER} from "../../utils/apiRoute.ts";
 import { useNavigate } from "react-router-dom";
+import MultiSelection from "../../components/MultipleSelection/MultipleSelection.tsx";
 
 const AddUser = () => {
   const [user, setUser] = useState({});
@@ -65,6 +66,7 @@ const AddUser = () => {
                     );
                   })}
                 </select>
+                <MultiSelection />
               </div>
               <div className={styles.usernameContainer}>
                 <label htmlFor='username'>Username</label>
