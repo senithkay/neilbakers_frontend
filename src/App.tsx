@@ -14,21 +14,35 @@ import DailyStockReport from "./pages/DailyStockReport/DailyStockReport";
 import WeeklyStockReport from "./pages/WeekltStockReport/WeeklyStockReport";
 import MonthlystockReport from "./pages/MothlyStockReport/MonthlyStockReport";
 import ViewProducts from "./pages/ViewProduct/ViewProduct";
-import {history} from "./utils/common.ts";
-import {useNavigate, useLocation} from "react-router-dom";
+import { history } from "./utils/common.ts";
+import { useNavigate, useLocation } from "react-router-dom";
 import EnterOTP from "./pages/ResetPassword/EnterOTP.tsx";
 import ResetPassword from "./pages/ResetPassword/ResetPassword.tsx";
 import Locations from "./pages/Locations/Locations.tsx";
 import AddLocation from "./pages/AddLocation/AddLocation.tsx";
 import ChangePassword from "./pages/ChangePassword/ChangePassword.tsx";
 import ViewUser from "./pages/ViewUser/ViewUser.tsx";
+import { message } from "antd";
 
 function App() {
+    const [messageApi, contextHolder] = message.useMessage();
+   
+
+    const error = () => {
+        messageApi.open({
+            type: "error",
+            content: "This is an error message",
+        });
+    };
+
     const Layout = () => {
         history.navigate = useNavigate();
         history.location = useLocation();
+        history.messageApi = messageApi;
         return (
             <div className="main">
+                {contextHolder}
+                <button onClick={error}>test</button>
                 <div className="menuContainer">
                     <Menu />
                 </div>
@@ -105,28 +119,25 @@ function App() {
                     element: <Users />,
                 },
                 {
-                    path: '/add-user',
+                    path: "/add-user",
                     element: <AddUser />,
                 },
                 {
-                    path: '/edit-user/:id',
+                    path: "/edit-user/:id",
                     element: <ViewUser />,
                 },
                 {
-                    path: '/locations',
+                    path: "/locations",
                     element: <Locations />,
-        
                 },
                 {
-                    path: '/add-location',
+                    path: "/add-location",
                     element: <AddLocation />,
                 },
                 {
-                    path: '/change-password',
+                    path: "/change-password",
                     element: <ChangePassword />,
-                }
-                
-
+                },
             ],
         },
         {
@@ -136,7 +147,6 @@ function App() {
         {
             path: "/forgot-password",
             element: <ForgotPassword />,
-
         },
         {
             path: "/reset-password-otp",
@@ -146,7 +156,6 @@ function App() {
             path: "/reset-password",
             element: <ResetPassword />,
         },
-       
     ]);
 
     return <RouterProvider router={router} />;

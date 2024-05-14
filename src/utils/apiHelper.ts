@@ -1,5 +1,6 @@
 import {history} from "./common.ts";
 import {AUTH_USER} from "./apiRoute.ts";
+import { message } from "antd";
 
 const BASE_URL = "http://localhost:3000";
 
@@ -17,8 +18,15 @@ const getPrams = (params: Params[]) => {
 }
 
 export const sendGET = async (endpoint: string, params: Params[]) => {
+   
+   
+    
     const paramsString = getPrams(params);
     try {
+        history.messageApi.open({
+            type: "error",
+            content: "This is an error message",
+        });
         const response = await fetch(`${BASE_URL}${endpoint}${paramsString}`, { credentials: 'include' });
         if (response.status === 401) {
             history.navigate('/signin')

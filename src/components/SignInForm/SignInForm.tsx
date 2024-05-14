@@ -4,8 +4,19 @@ import {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import {AUTH_USER} from "../../utils/apiRoute.ts";
 import {sendPOST} from "../../utils/apiHelper.ts";
+import { message } from "antd";
+
 
 const SignInForm = () => {
+    const [messageApi, contextHolder] = message.useMessage();
+   
+
+    const error = () => {
+        messageApi.open({
+            type: "error",
+            content: "This is an error message",
+        });
+    };
 
     const [credentials, setCredentials] = useState({});
     const navigate = useNavigate();
@@ -21,6 +32,8 @@ const SignInForm = () => {
 
     return (
             <div className={styles.formContainer}>
+                     {contextHolder}
+                <button onClick={error}>test</button>
                 <div className={styles.companyDetails}>
                     <img src={Logo}/>
                     <p>Neil Bakery</p>
