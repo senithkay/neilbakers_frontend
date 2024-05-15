@@ -3,20 +3,30 @@ import Logo from "../../assets/Logo/logo.png";
 import {sendGET} from "../../utils/apiHelper.ts";
 import {SEND_EMAIL} from "../../utils/apiRoute.ts";
 import {useState} from "react";
+import {message} from "antd";
+import {useNavigate} from "react-router-dom";
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState("");
-
+    const [messageApi, contextHolder] = message.useMessage();
+    const navigate = useNavigate()
     const handleSend = (event:any) => {
         event.preventDefault()
         const params = [{key: "email", value: email}];
         sendGET(SEND_EMAIL, params).then((jsonData) => {
             console.log(jsonData)
         });
-        alert("If you are an admin, you will receive and email containing instructions on how to reset your password.");
+
+        messageApi.open({
+            type: "success",
+            content: 'If you are an admin, you will receive and email containing instructions on how to reset your password.',
+        }).then(()=>{
+            navigate('/signin')
+        });
     }
     return (
         <div className={styles.wrapper}>
+            {contextHolder}
             <div className={styles.mainContainer}>
                 <div className={styles.leftContainer}>
                     <div className={styles.companyDetails}>

@@ -1,9 +1,9 @@
-import FileUpload from "../../components/FileUploader/FileUploader";
+
 import styles from "./viewProduct.module.scss";
 import {useNavigate, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
-import {sendGET, sendPUT} from "../../utils/apiHelper.ts";
-import {EDIT_PRODUCT, GET_BRANCHES} from "../../utils/apiRoute.ts";
+import { sendPUT} from "../../utils/apiHelper.ts";
+import {EDIT_PRODUCT} from "../../utils/apiRoute.ts";
 
 const ViewProducts: React.FC = () => {
     const { id } = useParams();

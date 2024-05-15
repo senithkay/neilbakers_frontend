@@ -16,7 +16,11 @@ const AddLocation = () => {
     const handleSubmit = (event:any)=>{
         event.preventDefault()
         if(location === ""){
-            alert('Please Enter a location name')
+            history.messageApi.open({
+                type: "error",
+                content: 'Please Enter a location name',
+            });
+
         }
         else{
             sendPOST(SAVE_LOCATION, {name: location})

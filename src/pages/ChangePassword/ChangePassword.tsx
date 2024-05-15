@@ -2,32 +2,49 @@ import styles from "./changePassword.module.scss";
 import Logo from "../../assets/Logo/logo.png";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {sendPOST} from "../../utils/apiHelper.ts";
-import { CHANGE_PASSWORD} from "../../utils/apiRoute.ts";
+import {sendGET, sendPOST} from "../../utils/apiHelper.ts";
+import {CHANGE_PASSWORD, LOGOUT_USER} from "../../utils/apiRoute.ts";
+import {message} from "antd";
 
 const ChangePassword = () => {
     const [credentials, setCredentials] = useState<any>({});
     const navigate = useNavigate();
+    const [messageApi, contextHolder] = message.useMessage();
     const handleChangePassword = (event:any)=>{
         event.preventDefault();
         if (credentials.newPassword !== credentials.confirmPassword) {
-            alert("New password and current password does not match")
+            messageApi.open({
+                type: "error",
+                content: "New password and confirm password does not match",
+            });
         }
         else{
             sendPOST(CHANGE_PASSWORD, credentials)
                 .then((result)=>{
                     if (result.data._id){
-                        alert("Password reset successful")
-                        navigate('/')
+                        messageApi.open({
+                            type: "success",
+                            content: "Password reset successful",
+                        }).then(()=>{
+                            navigate('/')
+                        }).then(()=>{
+                            sendGET(LOGOUT_USER, []).then(() => {
+                                navigate('/signin')
+                            });
+                        });
                     } else {
-                        alert("Old password is incorrect !")
+                        messageApi.open({
+                            type: "error",
+                            content: "Current password validation failed",
+                        })
                     }
                 })
         }
     }
     return (
        
-        <div className={styles.wrapper}> 
+        <div className={styles.wrapper}>
+            {contextHolder}
             <div className={styles.mainContainer}>
                 <div className={styles.leftContainer}>
                     <div className={styles.companyDetails}>
