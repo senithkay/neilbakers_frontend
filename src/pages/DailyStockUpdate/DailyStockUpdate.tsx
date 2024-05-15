@@ -20,6 +20,11 @@ const DailyStockUpdate = () => {
     const [remainingCost, setRemainingCost] = useState(0);
 
     const { id } = useParams();
+
+    function deleteStock(key: any) {
+        const newStocks = stocks.filter((user: any) => user._id !== key);
+        setStocks([...newStocks]);
+    }
     const handleSubmit = (event: any) => {
         event.preventDefault();
         if (id !== undefined && id.length > 0) {
@@ -173,7 +178,7 @@ const DailyStockUpdate = () => {
                 <button className={styles.addButton} onClick={handleSubmit}>
                     Add
                 </button>
-                <StockTable data={stocks} />
+                <StockTable onDelete={deleteStock} data={stocks} />
             </div>
         </div>
     );

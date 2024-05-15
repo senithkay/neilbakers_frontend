@@ -6,15 +6,17 @@ import TableRow from "./StockTableRow";
 
 interface TableComponentProps {
     data: {
+        _id:string;
       productId: any;
       availableStock: number;
       remainingStock: number;
       pricePerUnit: number;
-      onDelete: (id:string) => void;
+
     }[];
+    onDelete: (id:string) => void;
 }
 
-const StockTable: React.FC<TableComponentProps> = ({ data }) => {
+const StockTable: React.FC<TableComponentProps> = ({ data, onDelete }) => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage: number = 10;
     const totalPages: number = Math.ceil(data.length / itemsPerPage);
@@ -37,15 +39,15 @@ const StockTable: React.FC<TableComponentProps> = ({ data }) => {
             .slice(startIndex, endIndex)
             .map((item) => (
                 <TableRow
-                    key={item.productId._id}
+                    type={'stock'}
+                    key={item._id}
                     product={item.productId.productName}
                     availableStock={item.availableStock}
                     remainingStock={item.remainingStock}
                     soldUnits={item.availableStock - item.remainingStock}
                     pricePerUnit={item.pricePerUnit}
-                    totalSales={(item.availableStock - item.remainingStock) * item.pricePerUnit} onDelete={function (): void {
-                        throw new Error("Function not implemented.");
-                    } } id={""}                />
+                    totalSales={(item.availableStock - item.remainingStock) * item.pricePerUnit} onDelete={onDelete}
+                    _id={item._id}                />
             ));
     };
 
