@@ -22,7 +22,7 @@ const AddLocation = () => {
             sendPOST(SAVE_LOCATION, {name: location})
                 .then((result:any)=>{
                     if (result.data._id !== undefined) {
-                        navigate("/products");
+                        navigate("/locations");
                         history.messageApi.open({
                             type: "success",
                             content: "Location added successfully",
