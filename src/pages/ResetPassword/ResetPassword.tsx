@@ -35,14 +35,20 @@ const ResetPassword = () => {
                             </p>
                         </div>
                         <form action="" className={styles.form}>
-                            <div className={styles.emailConatainer}>
+                            {/* <div className={styles.emailConatainer}>
                                 <label htmlFor="email">Email</label>
                                 <input type="email" id="email" onChange={(event) => {
                                     setCredentials({...credentials, email: event.target.value});
                                 }}/>
-                            </div>
+                            </div> */}
                             <div className={styles.passwordContainer}>
                                 <label htmlFor="password">New Password</label>
+                                <input type="password" id="password" onChange={(event) => {
+                                    setCredentials({...credentials, password: event.target.value});
+                                }}/>
+                            </div>
+                            <div className={styles.passwordContainer}>
+                                <label htmlFor="password">Confirm Password</label>
                                 <input type="password" id="password" onChange={(event) => {
                                     setCredentials({...credentials, password: event.target.value});
                                 }}/>
