@@ -42,6 +42,11 @@ const DailyStockUpdate = () => {
                         type: "success",
                         content: "\"Stock updated successfully",
                     });
+                    setStock({...stock, productId: '', availableStock:0 , remainingStock:0});
+                    setPrice(0)
+                    setSold(0);
+                    setSales(0);
+                    setRemainingCost(0)
                 }
             });
         }
@@ -79,6 +84,7 @@ const DailyStockUpdate = () => {
                     <div className={styles.inputWrapper}>
                         <label htmlFor="">Select product</label>
                         <select
+                            value={stock.productId}
                             name=""
                             id=""
                             onChange={(event) => {
@@ -117,6 +123,7 @@ const DailyStockUpdate = () => {
                         <label htmlFor="">Available stock</label>
                         <input
                             type="number"
+                            value={stock.availableStock}
                             onChange={(event:any) => {
                                 setSold(event.target.value-stock.remainingStock)
                                 setSales((event.target.value-stock.remainingStock)* price)
@@ -131,6 +138,7 @@ const DailyStockUpdate = () => {
                         <label htmlFor="">Remaining stock</label>
                         <input
                             type="number"
+                            value={stock.remainingStock}
                             onChange={(event:any) => {
                                 setSold(stock.availableStock-event.target.value)
                                 setSales((stock.availableStock-event.target.value)* price)
@@ -151,12 +159,6 @@ const DailyStockUpdate = () => {
                         <input
                             value={price.toFixed(2)}
                             type="number"
-                            // onChange={(event) => {
-                            //     setStock({
-                            //         ...stock,
-                            //         pricePerUnit: event.target.value,
-                            //     });
-                            // }}
                         />
                     </div>
                     <div className={styles.inputWrapper}>
