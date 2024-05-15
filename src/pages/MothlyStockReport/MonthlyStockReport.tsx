@@ -68,10 +68,5 @@ const MonthlystockReport = () => {
     );
 };
 
-function getDefaultMonth() {
-    const today = new Date();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    return `${month}`;
-}
 
 export default MonthlystockReport;

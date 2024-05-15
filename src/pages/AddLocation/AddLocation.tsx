@@ -4,6 +4,7 @@ import {useState} from "react";
 import {sendPOST} from "../../utils/apiHelper.ts";
 import {SAVE_LOCATION} from "../../utils/apiRoute.ts";
 import {useNavigate} from "react-router-dom";
+import {history} from "../../utils/common.ts";
 // import {useState} from "react";
 
 const AddLocation = () => {
@@ -20,11 +21,12 @@ const AddLocation = () => {
         else{
             sendPOST(SAVE_LOCATION, {name: location})
                 .then((result:any)=>{
-                    if (result.data._id){
-                        navigate('/locations')
-                    }
-                    else{
-                        alert("Error creating the branch")
+                    if (result.data._id !== undefined) {
+                        navigate("/products");
+                        history.messageApi.open({
+                            type: "success",
+                            content: "Location added successfully",
+                        });
                     }
                 })
         }

@@ -3,6 +3,7 @@ import styles from "./deleteModal.module.scss";
 import CloseOutlined from "@ant-design/icons/lib/icons/CloseOutlined";
 import DeleteIcon from "../../assets/Icons/delete-icon.svg";
 import { sendDELETE } from "../../utils/apiHelper.ts";
+import {history} from "../../utils/common.ts";
 
 interface DeleteModalProps {
   open: boolean;
@@ -28,6 +29,10 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
       if (jsonData.data._id !== undefined) {
         deleteFunction(jsonData.data._id);
         onClose();
+        history.messageApi.open({
+          type: "success",
+          content: `${type} deleted successfully`,
+        });
       }
     });
   };

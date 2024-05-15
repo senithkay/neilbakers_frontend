@@ -1,30 +1,41 @@
 import styles from "./signInForm.module.scss";
 import Logo from "../../assets/Logo/logo.png";
 import {useState} from "react";
-import { useNavigate } from "react-router-dom";
 import {AUTH_USER} from "../../utils/apiRoute.ts";
 import {sendPOST} from "../../utils/apiHelper.ts";
-import { message } from "antd";
+import {message} from "antd";
+import { useNavigate } from "react-router-dom";
 
 
 const SignInForm = () => {
     const [messageApi, contextHolder] = message.useMessage();
-   
-
-    const error = () => {
-        messageApi.open({
-            type: "error",
-            content: "This is an error message",
-        });
-    };
-
-    const [credentials, setCredentials] = useState({});
+    const [credentials, setCredentials] = useState<any>({});
     const navigate = useNavigate();
     const handleSignin = (event:any)=>{
         event.preventDefault();
+        if (credentials.email === undefined || credentials.email === ''){
+            messageApi.open({
+                type: "error",
+                content: "Please enter your email",
+            });
+            return;
+        }
+        if (credentials.password === undefined || credentials.password === ''){
+            messageApi.open({
+                type: "error",
+                content: "Please enter a your password",
+            });
+            return;
+        }
         sendPOST(AUTH_USER, credentials)
         .then((result)=>{
-            if (result.data._id){
+            if (result.status === 0){
+                messageApi.open({
+                    type: "error",
+                    content: result.description,
+                });
+            }
+            else{
                 navigate('/')
             }
         })
@@ -32,8 +43,7 @@ const SignInForm = () => {
 
     return (
             <div className={styles.formContainer}>
-                     {contextHolder}
-                <button onClick={error}>test</button>
+                {contextHolder}
                 <div className={styles.companyDetails}>
                     <img src={Logo}/>
                     <p>Neil Bakery</p>

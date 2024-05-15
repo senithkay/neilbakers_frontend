@@ -1,6 +1,7 @@
 import {history} from "./common.ts";
 import {AUTH_USER} from "./apiRoute.ts";
-import { message } from "antd";
+
+
 
 const BASE_URL = "http://localhost:3000";
 
@@ -23,19 +24,23 @@ export const sendGET = async (endpoint: string, params: Params[]) => {
     
     const paramsString = getPrams(params);
     try {
-        history.messageApi.open({
-            type: "error",
-            content: "This is an error message",
-        });
+
         const response = await fetch(`${BASE_URL}${endpoint}${paramsString}`, { credentials: 'include' });
         if (response.status === 401) {
             history.navigate('/signin')
+            history.messageApi.open({
+                type: "error",
+                content: "Session expired",
+            });
             return {
                 data : []
             };
         }
         if (response.status === 500) {
-            alert("An error occurred performing the request");
+            history.messageApi.open({
+                type: "error",
+                content: "An error occurred performing the request",
+            });
         }
         const json = await response.json();
         return json;
@@ -56,17 +61,27 @@ export const sendPOST = async (endpoint: string, payload: any) => {
             credentials: 'include',
             body: JSON.stringify(payload),
         });
+        const json = await response.json();
         if (response.status === 401) {
             if (endpoint === AUTH_USER){
-                alert("Invalid credentials")
+                return {
+                    status: 0,
+                    description:"Invalid username or password",
+                };
             }
+            history.messageApi.open({
+                type: "error",
+                content: "Session expired",
+            });
             history.navigate('/signin')
             return [];
         }
         if (response.status === 500) {
-            alert("An error occurred performing the request");
+            history.messageApi.open({
+                type: "error",
+                content: json.description,
+            });
         }
-        const json = await response.json();
         return json;
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -79,13 +94,21 @@ export const sendGETPDF = async (endpoint: string, params: Params[]) => {
     try {
         const response = await fetch(`${BASE_URL}${endpoint}${paramsString}`, { credentials: 'include' });
         if (response.status === 401) {
+            history.messageApi.open({
+                type: "error",
+                content: "Session expired",
+            });
             history.navigate('/signin')
             return {
                 data : []
             };
         }
+
         if (response.status === 500) {
-            alert("An error occurred performing the request");
+            history.messageApi.open({
+                type: "error",
+                content: "An error occurred performing the request",
+            });
         }
         return response.blob()
     } catch (error) {
@@ -103,11 +126,21 @@ export const sendPOSTFORMDATA = async (endpoint: string, payload: any) => {
             body: payload,
             credentials :'include'
         });
+        const json = await response.json();
         if (response.status === 401) {
+            history.messageApi.open({
+                type: "error",
+                content: "Session expired",
+            });
             history.navigate('/signin')
             return [];
         }
-        const json = await response.json();
+        if (response.status === 500) {
+            history.messageApi.open({
+                type: "error",
+                content: json.description,
+            });
+        }
         return json;
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -121,15 +154,26 @@ export const sendDELETE = async (endpoint: string, params: Params[]) => {
     try {
         const response = await fetch(`${BASE_URL}${endpoint}${paramsString}`, { credentials: 'include', method :'DELETE' });
         if (response.status === 401) {
+            history.messageApi.open({
+                type: "error",
+                content: "Session expired",
+            });
             history.navigate('/signin')
             return [];
         }
         if (response.status === 500) {
-            alert("An error occurred performing the request");
+            history.messageApi.open({
+                type: "error",
+                content: "An error occurred performing the request",
+            });
         }
         if (response.status === 400) {
             response.json().then((data)=>{
-                alert(data.description)
+                history.messageApi.open({
+                    type: "error",
+                    content: data.description,
+                });
+
             })
         }
         const json = await response.json();
@@ -154,13 +198,29 @@ export const sendPUT = async (endpoint: string, params: Params[], payload: any) 
         });
         if (response.status === 401) {
             if (endpoint === AUTH_USER){
-                alert("Invalid credentials")
+                history.messageApi.open({
+                    type: "error",
+                    content: "Invalid credentials",
+                });
             }
+            history.messageApi.open({
+                type: "error",
+                content: "Session expired",
+            });
             history.navigate('/signin')
             return [];
         }
         if (response.status === 500) {
-            alert("An error occurred performing the request");
+            history.messageApi.open({
+                type: "error",
+                content: "An error occurred performing the request",
+            });
+        }
+        else{
+            history.messageApi.open({
+                type: "success",
+                content: 'Updated successfully',
+            });
         }
         const json = await response.json();
         return json;

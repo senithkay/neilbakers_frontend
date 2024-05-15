@@ -26,23 +26,14 @@ import { message } from "antd";
 
 function App() {
     const [messageApi, contextHolder] = message.useMessage();
-   
-
-    const error = () => {
-        messageApi.open({
-            type: "error",
-            content: "This is an error message",
-        });
-    };
-
+    history.messageApi = messageApi;
     const Layout = () => {
         history.navigate = useNavigate();
         history.location = useLocation();
-        history.messageApi = messageApi;
+
         return (
             <div className="main">
                 {contextHolder}
-                <button onClick={error}>test</button>
                 <div className="menuContainer">
                     <Menu />
                 </div>

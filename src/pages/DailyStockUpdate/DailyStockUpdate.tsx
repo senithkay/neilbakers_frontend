@@ -8,6 +8,7 @@ import {
     GET_STOCK,
     SAVE_DAILY_STOCK,
 } from "../../utils/apiRoute.ts";
+import {history} from "../../utils/common.ts";
 
 const DailyStockUpdate = () => {
     const [stock, setStock] = useState({} as any);
@@ -37,7 +38,10 @@ const DailyStockUpdate = () => {
                     );
                     newStocks.push(jsonData.data);
                     setStocks(newStocks);
-                    alert("Stock updated successfully !")
+                    history.messageApi.open({
+                        type: "success",
+                        content: "\"Stock updated successfully",
+                    });
                 }
             });
         }

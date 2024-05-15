@@ -4,19 +4,14 @@ import { useEffect, useState } from "react";
 import { sendGET, sendPOST } from "../../utils/apiHelper.ts";
 import { GET_BRANCHES, SAVE_USER } from "../../utils/apiRoute.ts";
 import { useNavigate } from "react-router-dom";
-import MultiSelection from "../../components/MultipleSelection/MultipleSelection.tsx";
 import Select  from "react-select";
+import {history} from "../../utils/common.ts";
 
 interface Option {
   value: string;
   label: string;
 }
 
-const options: Option[] = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
-];
 
 
 const AddUser = () => {
@@ -29,14 +24,25 @@ const AddUser = () => {
         event.preventDefault();
         sendPOST(SAVE_USER, user).then(async (jasonData) => {
             if (jasonData.data._id !== undefined) {
-                navigate("/users");
+                navigate("/products");
+                history.messageApi.open({
+                    type: "success",
+                    content: "User added successfully",
+                });
             }
         });
     };
 
     const handleOnChange = (selectedOptions:any) => {
       setSelectedOptions(selectedOptions);
-      console.log(selectedOptions);
+      const locationsArray = selectedOptions.map((option:Option) => {
+          return option.value
+      })
+
+        setUser({
+            ...user,
+            location: locationsArray,
+        });
     }
 
     useEffect(() => {
@@ -85,29 +91,6 @@ const AddUser = () => {
                             </div>
                             <div className={styles.locationContainer}>
                                 <label htmlFor="location">Location</label>
-                                {/* <select
-                                    onChange={(event) => {
-                                        setUser({
-                                            ...user,
-                                            location: event.target.value,
-                                        });
-                                    }}
-                                    multiple={true}
-                                >
-                                    <option value={""}></option>
-                                    {locations.map(
-                                        (location: {
-                                            _id: string;
-                                            name: string;
-                                        }) => {
-                                            return (
-                                                <option value={location._id}>
-                                                    {location.name}
-                                                </option>
-                                            );
-                                        }
-                                    )}
-                                </select> */}
                                 <Select
                                     options={options}
                                     value={selectedOptions}
