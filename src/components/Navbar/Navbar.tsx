@@ -12,6 +12,7 @@ const Navbar: React.FC = () => {
     const dropdownRef = useRef<HTMLDivElement>(null);
     const [user, setUser] = useState<any>({});
     const navigate = useNavigate();
+    const [clickOutsideValid, setClickOutsideValid] = useState<boolean>(false);
 
     useEffect(() => {
         sendGET(GET_TEMP_USER, [])
@@ -23,12 +24,7 @@ const Navbar: React.FC = () => {
                 }
                 setUser(jsonData.data);
             });
-        const handleClickOutside = (event: MouseEvent) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-                setDropdownVisible(false);
-                setIsRotated(false);
-            }
-        };
+
 
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
@@ -37,8 +33,23 @@ const Navbar: React.FC = () => {
     }, []);
 
     const toggleDropdown = () => {
-        setDropdownVisible(!dropdownVisible);
-        setIsRotated(!isRotated);
+        if (!clickOutsideValid){
+            setDropdownVisible(!dropdownVisible);
+            setIsRotated(!isRotated);
+        }else{
+            setClickOutsideValid(false)
+        }
+    };
+
+    const handleClickOutside = (event: MouseEvent) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+            setClickOutsideValid(true)
+            setDropdownVisible(false);
+            setIsRotated(false);
+        }
+        else{
+            setClickOutsideValid(false)
+        }
     };
 
     const handleSignOut = () => {
