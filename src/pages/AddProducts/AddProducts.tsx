@@ -103,7 +103,7 @@ const AddProducts: React.FC = () => {
                     <div className={styles.inputWrapper}>
                         <label>Price</label>
                         <input
-                            type="text"
+                            type="number"
                             onChange={(event) => {
                                 setInputData({
                                     ...inputData,
