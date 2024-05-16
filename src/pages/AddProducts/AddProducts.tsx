@@ -7,41 +7,9 @@ import {history} from "../../utils/common.ts";
 
 const AddProducts: React.FC = () => {
     const [inputData, setInputData] = useState<any>({});
-    const [files, setFiles] = useState<File[]>([]);
     const { id } = useParams();
     const navigate = useNavigate();
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
-            const fileList = Array.from(e.target.files);
-            const filteredFiles = fileList.filter(
-                (file) =>
-                    file.type === "image/jpeg" || file.type === "image/png"
-            );
-            setFiles([...files, ...filteredFiles]);
-        }
-    };
 
-    const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-        e.preventDefault();
-    };
-
-    const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-        e.preventDefault();
-        if (e.dataTransfer.files) {
-            const fileList = Array.from(e.dataTransfer.files);
-            const filteredFiles = fileList.filter(
-                (file) =>
-                    file.type === "image/jpeg" || file.type === "image/png"
-            );
-            setFiles([...files, ...filteredFiles]);
-        }
-    };
-
-    const handleDelete = (index: number) => {
-        const updatedFiles = [...files];
-        updatedFiles.splice(index, 1);
-        setFiles(updatedFiles);
-    };
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
@@ -57,7 +25,6 @@ const AddProducts: React.FC = () => {
         formData.append("sku", inputData.sku);
         formData.append("description", inputData.description);
         formData.append("price", inputData.price);
-        formData.append("image", files[0]);
         sendPOSTFORMDATA(SAVE_PRODUCT, formData).then(async (jasonData) => {
             if (jasonData.data._id !== undefined) {
                 navigate("/products");

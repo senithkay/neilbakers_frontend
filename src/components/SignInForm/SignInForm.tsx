@@ -67,7 +67,7 @@ const SignInForm = () => {
                     </div>
                     <div className={styles.forgotContainer}>
                         <div className={styles.rememberContainer}>
-                            <input type="checkbox" id="remember"/>
+                            <input type="checkbox" id="remember" />
                             <label htmlFor="remember">Remember me ?</label>
                         </div>
                         <a href="/forgot-password">

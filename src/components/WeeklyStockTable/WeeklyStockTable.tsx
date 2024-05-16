@@ -8,6 +8,7 @@ interface DailyStockItem {
     balanceStock: number;
     pricePerUnit: number;
     totalSales: number;
+    date:string
 }
 
 interface Props {
@@ -20,15 +21,16 @@ const WeeklyStockTable: React.FC<Props> = ({ data }) => {
         <div className={styles.table}>
             <table>
                 <thead>
-                    <tr>
-                        <th>Serial No</th>
-                        <th>Product Name</th>
-                        <th>Opening Stock Qty</th>
-                        <th>Sold Stock Qty</th>
-                        <th>Balance Qty</th>
-                        <th>Price per Unit</th>
-                        <th>Total Sales</th>
-                    </tr>
+                <tr>
+                    <th>Serial No</th>
+                    <th>Product Name</th>
+                    <th>Opening Stock Qty</th>
+                    <th>Sold Stock Qty</th>
+                    <th>Balance Qty</th>
+                    <th>Date</th>
+                    <th>Price per Unit</th>
+                    <th>Total Sales</th>
+                </tr>
                 </thead>
                 <tbody>
                     {data.map((item, index) => (
@@ -38,6 +40,7 @@ const WeeklyStockTable: React.FC<Props> = ({ data }) => {
                             <td>{item.openingStock}</td>
                             <td>{item.soldStock}</td>
                             <td>{item.balanceStock}</td>
+                            <td className={styles.price}>{item.date}</td>
                             <td className={styles.price}>{item.pricePerUnit.toFixed(2)}</td>
                             <td className={styles.price}>{item.totalSales.toFixed(2)}</td>
                         </tr>
@@ -52,12 +55,13 @@ const WeeklyStockTable: React.FC<Props> = ({ data }) => {
                             <td></td>
                             <td></td>
                             <td></td>
+                            <td></td>
                         </tr>
                     ))}
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colSpan={6}>Total</td>
+                        <td colSpan={7}>Total</td>
                         <td className={styles.price}>{totalSales.toFixed(2)}</td>
                     </tr>
                 </tfoot>

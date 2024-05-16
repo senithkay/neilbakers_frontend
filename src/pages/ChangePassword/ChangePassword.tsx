@@ -26,17 +26,10 @@ const ChangePassword = () => {
                             type: "success",
                             content: "Password reset successful",
                         }).then(()=>{
-                            navigate('/')
-                        }).then(()=>{
                             sendGET(LOGOUT_USER, []).then(() => {
                                 navigate('/signin')
                             });
                         });
-                    } else {
-                        messageApi.open({
-                            type: "error",
-                            content: "Current password validation failed",
-                        })
                     }
                 })
         }

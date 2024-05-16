@@ -24,7 +24,7 @@ const AddUser = () => {
         event.preventDefault();
         sendPOST(SAVE_USER, user).then(async (jasonData) => {
             if (jasonData.data._id !== undefined) {
-                navigate("/locations");
+                navigate("/users");
                 history.messageApi.open({
                     type: "success",
                     content: "User added successfully",

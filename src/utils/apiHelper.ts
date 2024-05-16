@@ -81,6 +81,8 @@ export const sendPOST = async (endpoint: string, payload: any) => {
                 type: "error",
                 content: json.description,
             });
+            return;
+
         }
         return json;
     } catch (error) {
