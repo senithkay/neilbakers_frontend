@@ -46,8 +46,8 @@ const Users = () => {
                 <div key={user._id} className={styles.user}>
                   <p>{user.username}</p>
                   <div className={styles.action}>
-                    <Link to={`/edit-user/${JSON.stringify({_id:user._id, email:user.email, location:user.location, username:user.username})}`}>
-                    <button>
+                    <Link to={`/edit-user/${JSON.stringify({_id:user._id, email:user.email, location:user.uLocation, username:user.username})}`}>
+                    <button >
                       <img src={EditIcon} />
                     </button>
                     </Link>

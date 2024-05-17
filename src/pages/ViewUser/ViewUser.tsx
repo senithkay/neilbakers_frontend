@@ -4,15 +4,22 @@ import {useEffect, useState} from "react";
 import {sendGET, sendPUT} from "../../utils/apiHelper.ts";
 import {EDIT_USER, GET_BRANCHES} from "../../utils/apiRoute.ts";
 import {useParams, useNavigate} from "react-router-dom";
+import Select from "react-select";
 
+interface Option {
+    value: string;
+    label: string;
+}
 const ViewUser = () => {
     const [user, setUser] = useState<any>({});
-    const [locations, setLocations] = useState([]);
+    const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
+    const [options, setOptions] = useState<Option[]>([]);
     const { id } = useParams();
     const navigate = useNavigate()
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
+        alert(JSON.stringify(user))
         const params:any = [{ key: id, value: user._id }];
         sendPUT(EDIT_USER, params ,user).then(async (jasonData) => {
             if (jasonData.data._id !== undefined) {
@@ -21,16 +28,57 @@ const ViewUser = () => {
         });
     };
 
+    const handleOnChange = (selectedOptions:any) => {
+        console.log(selectedOptions)
+        setSelectedOptions(selectedOptions);
+        const locationsArray = selectedOptions.map((option:Option) => {
+            return option.value
+        })
+
+        setUser({
+            ...user,
+            location: locationsArray,
+        });
+    }
+
     useEffect(() => {
         if (id !== undefined){
             const userData = JSON.parse(id);
-            setUser(userData);
+            console.log(userData)
+            const locationIds = userData.location.map((item:any)=>{
+                return item._id
+            })
+            console.log(locationIds)
+            const newUser = {
+                email : userData.email,
+                username: userData.username,
+                _id: userData._id,
+                location: locationIds,
+            }
+            setUser(newUser);
+
+            const selectedLocationList:Option[] = []
+            userData.location.forEach((location: { _id: string; name: string; })=>{
+                const branch = {
+                    value: location._id,
+                    label: location.name,
+                }
+                selectedLocationList.push(branch)
+            })
+            setSelectedOptions(selectedLocationList);
+
         }
 
-        sendGET(GET_BRANCHES, [])
-            .then((jsonData) => {
-                setLocations(jsonData.data);
+        sendGET(GET_BRANCHES, []).then((jsonData) => {
+            const loationOptions:Option[] = [];
+            jsonData.data.forEach((location: { _id: string; name: string }) => {
+                loationOptions.push({
+                    value: location._id,
+                    label: location.name,
+                });
             });
+            setOptions([...loationOptions]);
+        });
     }, []);
     return (
         <div className={styles.wrapper}>
@@ -57,22 +105,15 @@ const ViewUser = () => {
                                     }}
                                 />
                             </div>
-                            {/* <div className={styles.locationContainer}>
-                                <label htmlFor='location'>Location</label>
-                                <select
-                                    value={user.location}
-                                    onChange={(event) => {
-                                        setUser({...user, location: event.target.value});
-                                    }}
-                                >
-                                    <option value={""}></option>
-                                    {locations.map((location: { _id: string; name: string }) => {
-                                        return (
-                                            <option value={location._id}>{location.name}</option>
-                                        );
-                                    })}
-                                </select>
-                            </div> */}
+                            <div className={styles.locationContainer}>
+                                <label htmlFor="location">Location</label>
+                                <Select
+                                    options={options}
+                                    value={selectedOptions}
+                                    onChange={handleOnChange}
+                                    isMulti
+                                />
+                            </div>
                             <div className={styles.usernameContainer}>
                                 <label htmlFor='username'>Username</label>
                                 <input
