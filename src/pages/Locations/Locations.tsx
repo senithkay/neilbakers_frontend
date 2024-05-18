@@ -1,6 +1,5 @@
 import styles from "./locations.module.scss";
 import Logo from "../../assets/Logo/logo.png";
-import EditIcon from "../../assets/Icons/pen-icon.svg";
 import DeleteIcon from "../../assets/Icons/delete-gray-icon.svg";
 import { Link } from "react-router-dom";
 import {useEffect, useState} from "react";
