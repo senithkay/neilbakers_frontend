@@ -132,19 +132,19 @@ function App() {
             ],
         },
         {
-            path: "/#/signin",
+            path: "/signin",
             element: <SignIn />,
         },
         {
-            path: "/#/forgot-password",
+            path: "/forgot-password",
             element: <ForgotPassword />,
         },
         {
-            path: "/#/reset-password-otp",
+            path: "/reset-password-otp",
             element: <EnterOTP />,
         },
         {
-            path: "/#/reset-password/:id",
+            path: "/reset-password/:id",
             element: <ResetPassword />,
         },
     ]);
