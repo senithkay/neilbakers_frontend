@@ -1,5 +1,5 @@
 import React from "react";
-import styles from './dailyStockTable.module.scss';
+import styles from "./dailyStockTable.module.scss";
 
 interface DailyStockItem {
     productName: string;
@@ -23,10 +23,21 @@ const DailyStockTable: React.FC<Props> = ({ data }) => {
                     <tr>
                         <th>Serial No</th>
                         <th>Product Name</th>
-                        <th>Opening Stock Qty</th>
-                        <th>Sold Stock Qty</th>
-                        <th>Balance Qty</th>
-                        <th>Price per Unit</th>
+                        <th>Opening Qty</th>
+                        <th>Sold Qty</th>
+                        <th>
+                            Balance <br />
+                            Qty
+                        </th>
+                        <th>
+                            Price per <br />
+                            Unit
+                        </th>
+                        <th>
+                            Cost of <br />
+                            Remaining <br />
+                            Stock
+                        </th>
                         <th>Total Sales</th>
                     </tr>
                 </thead>
@@ -38,27 +49,41 @@ const DailyStockTable: React.FC<Props> = ({ data }) => {
                             <td>{item.openingStock}</td>
                             <td>{item.soldStock}</td>
                             <td>{item.balanceStock}</td>
-                            <td className={styles.price}>{item.pricePerUnit.toFixed(2)}</td>
-                            <td className={styles.price}>{item.totalSales.toFixed(2)}</td>
+                            <td className={styles.price}>
+                                {item.pricePerUnit.toFixed(2)}
+                            </td>
+                            <td className={styles.price}>
+                                {(
+                                    item.balanceStock * item.pricePerUnit
+                                ).toFixed(2)}
+                            </td>
+                            <td className={styles.price}>
+                                {item.totalSales.toFixed(2)}
+                            </td>
                         </tr>
                     ))}
                     {/* Display 10 empty rows */}
-                    {Array.from({ length: 10 - data.length }).map((_, index) => (
-                        <tr key={index + data.length}>
-                            <td>{index + data.length + 1}</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    ))}
+                    {Array.from({ length: 10 - data.length }).map(
+                        (_, index) => (
+                            <tr key={index + data.length}>
+                                <td>{index + data.length + 1}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        )
+                    )}
                 </tbody>
                 <tfoot>
                     <tr>
                         <td colSpan={6}>Total</td>
-                        <td className={styles.price}>{totalSales.toFixed(2)}</td>
+                        <td className={styles.price}>
+                            {totalSales.toFixed(2)}
+                        </td>
                     </tr>
                 </tfoot>
             </table>

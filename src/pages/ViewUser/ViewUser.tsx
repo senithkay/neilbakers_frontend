@@ -112,6 +112,13 @@ const ViewUser = () => {
                                     value={selectedOptions}
                                     onChange={handleOnChange}
                                     isMulti
+                                    className={styles.select}
+                                    styles={{
+                                        control: (baseStyles, state) => ({
+                                          ...baseStyles,
+                                          borderColor: state.isFocused ? '#b28e00' : '#b28e00',
+                                        }),
+                                      }}
                                 />
                             </div>
                             <div className={styles.usernameContainer}>

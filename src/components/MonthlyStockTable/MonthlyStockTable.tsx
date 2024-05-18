@@ -27,7 +27,7 @@ const MonthlyStockTable: React.FC<Props> = ({ data }) => {
                     <th>Opening Stock Qty</th>
                     <th>Sold Stock Qty</th>
                     <th>Balance Qty</th>
-                    <th>Date</th>
+                    <th>Stock Date</th>
                     <th>Price per Unit</th>
                     <th>Total Sales</th>
                 </tr>
