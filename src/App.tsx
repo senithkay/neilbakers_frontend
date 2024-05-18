@@ -48,6 +48,18 @@ function App() {
         );
     };
 
+    const Layout2 = () => {
+        history.navigate = useNavigate();
+        history.location = useLocation();
+
+        return (
+            <div className="main">
+                {contextHolder}
+                <Outlet />
+            </div>
+        );
+    };
+
     const router = createBrowserRouter([
         {
             path: "/",
@@ -132,21 +144,43 @@ function App() {
             ],
         },
         {
-            path: "/signin",
-            element: <SignIn />,
+            path: "/auth",
+            element: <Layout2 />,
+            children: [
+                {
+                    path: "/signin",
+                    element: <SignIn />,
+                },
+                {
+                    path: "/forgot-password",
+                    element: <ForgotPassword />,
+                },
+                {
+                    path: "/reset-password-otp",
+                    element: <EnterOTP />,
+                },
+                {
+                    path: "/reset-password/:id",
+                    element: <ResetPassword />,
+                },
+            ],
         },
-        {
-            path: "/forgot-password",
-            element: <ForgotPassword />,
-        },
-        {
-            path: "/reset-password-otp",
-            element: <EnterOTP />,
-        },
-        {
-            path: "/reset-password/:id",
-            element: <ResetPassword />,
-        },
+        // {
+        //     path: "/signin",
+        //     element: <SignIn />,
+        // },
+        // {
+        //     path: "/forgot-password",
+        //     element: <ForgotPassword />,
+        // },
+        // {
+        //     path: "/reset-password-otp",
+        //     element: <EnterOTP />,
+        // },
+        // {
+        //     path: "/reset-password/:id",
+        //     element: <ResetPassword />,
+        // },
     ]);
 
     return <RouterProvider router={router} />;
