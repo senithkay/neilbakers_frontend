@@ -1,4 +1,4 @@
-import { createStaticRouter, RouterProvider, Outlet } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Menu from "./components/Menu/Menu";
 import Navbar from "./components/Navbar/Navbar";
 import Dashboard from "./pages/Dashboard/Dashboard";
@@ -48,7 +48,7 @@ function App() {
         );
     };
 
-    const router = createStaticRouter([
+    const router = createBrowserRouter([
         {
             path: "/",
             element: <Layout />,
