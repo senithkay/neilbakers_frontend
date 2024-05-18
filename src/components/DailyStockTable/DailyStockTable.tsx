@@ -33,11 +33,6 @@ const DailyStockTable: React.FC<Props> = ({ data }) => {
                             Price per <br />
                             Unit
                         </th>
-                        <th>
-                            Cost of <br />
-                            Remaining <br />
-                            Stock
-                        </th>
                         <th>Total Sales</th>
                     </tr>
                 </thead>
@@ -53,11 +48,6 @@ const DailyStockTable: React.FC<Props> = ({ data }) => {
                                 {item.pricePerUnit.toFixed(2)}
                             </td>
                             <td className={styles.price}>
-                                {(
-                                    item.balanceStock * item.pricePerUnit
-                                ).toFixed(2)}
-                            </td>
-                            <td className={styles.price}>
                                 {item.totalSales.toFixed(2)}
                             </td>
                         </tr>
@@ -67,7 +57,6 @@ const DailyStockTable: React.FC<Props> = ({ data }) => {
                         (_, index) => (
                             <tr key={index + data.length}>
                                 <td>{index + data.length + 1}</td>
-                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>

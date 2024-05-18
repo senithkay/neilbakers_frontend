@@ -22,20 +22,6 @@ const AllProducts = () => {
     <div className={styles.wrapper}>
       <div className={styles.topContainer}>
         <p>Product List</p>
-        <div className={styles.sortingContainer}>
-          <input
-            type='search'
-            className={styles.searchBar}
-            placeholder='Search…'
-          />
-          <select className={styles.sortingSelect}>
-            <option disabled selected className={styles.default}>
-              Filter By
-            </option>
-            <option value='price'>Price</option>
-            <option value='rating'>Rating</option>
-          </select>
-        </div>
       </div>
       <ProductTable onDelete={onDelete} data={tableData} />
     </div>
